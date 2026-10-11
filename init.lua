@@ -1,5 +1,6 @@
 vim.cmd("colorscheme habamax")
 vim.cmd("set number")
+vim.cmd("set nowrap")
 
 vim.opt.completeopt = { "menu", "menuone", "noselect", "popup" }
 
