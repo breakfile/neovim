@@ -1,4 +1,4 @@
-vim.cmd("colorscheme habamax")
+vim.cmd("colorscheme nord")
 vim.cmd("set number")
 vim.cmd("set nowrap")
 
@@ -44,7 +44,20 @@ vim.lsp.config("pyright", {
   },
 })
 
-vim.lsp.enable({ "clangd", "ts_ls", "pyright" })
+vim.lsp.config("intelephense", {
+  cmd = { "intelephense", "--stdio" },
+  filetypes = { "php" },
+  root_markers = { "composer.json", ".git" },
+  settings = {
+    intelephense = {
+      files = {
+        maxSize = 5000000,
+      },
+    },
+  },
+})
+
+vim.lsp.enable({ "clangd", "ts_ls", "pyright", "intelephense" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
@@ -62,10 +75,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.opt.pumheight = 6
-
--- System clipboard for y, x and p only (d and c keep using the normal registers)
-vim.keymap.set({ "n", "v" }, "y", '"+y')
-vim.keymap.set("n", "Y", '"+y$')
-vim.keymap.set({ "n", "v" }, "x", '"+x')
-vim.keymap.set({ "n", "v" }, "p", '"+p')
-vim.keymap.set({ "n", "v" }, "P", '"+P')
+vim.opt.clipboard = "unnamedplus"
